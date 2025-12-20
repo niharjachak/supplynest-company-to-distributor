@@ -1,0 +1,60 @@
+package com.supplynext.company_api.models;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "companies")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Inheritance(strategy = InheritanceType.JOINED)
+
+public class Company extends GlobalRecord{
+
+    //COMP-0111
+    private String id;
+
+    private String companyName;
+    private String legalName;
+
+    private String gstNumber;
+    private String pancardNumber;
+    private String cinNumber;
+    private String companyType; // supplier, brand owner
+
+    private String addressLine1;
+    private String addressLine2;
+    private String addressLine3;
+    private String city;
+    private String state;
+    private String country;
+    private int pincode;
+
+    private String geoLatitude;
+    private String geoLongitude;
+    private boolean isKYCCompleted;
+
+    private String contactPersonName;
+    private String contactPersonEmail;
+    private String supportEmail;
+    private String supportPhone;
+
+    private String bankAccountNumber;
+    private String bankName;
+
+    private String ifscCode;
+    private String branchName;
+    private String creditLimitForDistributors;
+
+    @OneToMany
+    private List<Document> documentList;
+    private String status;
+
+}
