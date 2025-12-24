@@ -15,13 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product extends  GlobalRecord {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+
     private String prodId;
 
     @ManyToOne
-    private ManufacturerCompany manufacturerCompany;
+    Company manufacturerCompany;
     @Column(unique = true)
     private String skuCode;
 

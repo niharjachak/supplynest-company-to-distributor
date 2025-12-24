@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 //The GlobalRecord table stores the common attributes of every modelthat extends it.
 // It acts as a Parent table that stores the values of The COmpany, Product, Document created
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "golobal_records")
+@Table(name = "global_records")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,8 +25,10 @@ public class GlobalRecord {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    @ManyToOne
     private User createdBy;
-    private User updatedBy;
+    @ManyToMany
+    private List<User> updatedBy;
 
 
 

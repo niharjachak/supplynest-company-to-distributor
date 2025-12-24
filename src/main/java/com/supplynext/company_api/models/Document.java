@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "documents")
@@ -18,6 +18,6 @@ public class Document  extends GlobalRecord{
     private  String documentName;
     private  String documentOriginalName;
     private  String documentType;
-    private  String getDocumentUrl;
+    private  String documentUrl;
 
 }
