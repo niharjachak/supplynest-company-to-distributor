@@ -2,6 +2,7 @@ package com.supplynext.company_api.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 public class Company extends GlobalRecord{
 
     //COMP-0111
-    private String id;
+    private String companyId;
 
     private String companyName;
     private String legalName;
