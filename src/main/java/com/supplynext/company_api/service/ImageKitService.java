@@ -21,7 +21,7 @@ public class ImageKitService {
     private String publicKey;
     @Value("${image.kit.private.key}")
     private String privateKey;
-    @Value("${image.kit.urlEndpoint}")
+    @Value("${image.kit.url}")
     private String urlEndpoint;
 
 

@@ -1,9 +1,6 @@
 package com.supplynext.company_api.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +16,6 @@ public class Role extends GlobalRecord{
     @Column(unique = true,nullable = false)
     private String roleId;
     private String roleName;
-    @ManyToOne
+    @ManyToMany
     List<Operation> operations;
 }
