@@ -2,19 +2,32 @@ package com.supplynext.company_api.service;
 
 import com.supplynext.company_api.models.Company;
 import com.supplynext.company_api.models.CompanyEmployee;
+import com.supplynext.company_api.models.Role;
+import com.supplynext.company_api.models.User;
 import com.supplynext.company_api.repository.CompanyEmployeeRepository;
 import com.supplynext.company_api.utilities.CommonUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CompanyEmployeeService {
 
     @Autowired
-    CompanyEmployeeRepository companyEmployeeRepository;
+    private CompanyEmployeeRepository companyEmployeeRepository;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private UserService userService;
+
     public CompanyEmployee createFirstAdminAccount(Company company){
+
+        User botUser= userService.getBotUser();
+
         CompanyEmployee companyEmployee= new CompanyEmployee();
         companyEmployee.setCompany(company);
         companyEmployee.setCompanyEmployeeId(CommonUtility.generateIdForEntity("COMP-EMP"));
@@ -28,6 +41,10 @@ public class CompanyEmployeeService {
         companyEmployee.setFullName(company.getCompanyName()+" "+"Admin");
         companyEmployee.setPhoneNumber(company.getSupportPhone());
         companyEmployee.setPincode(company.getPincode());
+        // Role Functionality
+        // Create the role for the company admin
+        Role role= roleService.createFirstAdminRoleForCompany(company,botUser);
+        companyEmployee.setRoles(List.of(role));
 
         return this.saveCompanyEmployee(companyEmployee);
 

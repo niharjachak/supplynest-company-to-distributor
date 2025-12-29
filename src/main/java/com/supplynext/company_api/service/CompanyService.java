@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 
 
 @Service
@@ -36,7 +37,7 @@ public class CompanyService {
             MultipartFile companyRegistrationDocument,
             MultipartFile companyLogo,
             CompanyOnboardingRequestDto companyOnboardingRequestDto
-    ) {
+    ) throws ForbiddenException, TooManyRequestsException, InternalServerException, UnauthorizedException, BadRequestException, UnknownException, IOException {
         //we need to upload these documents on ImageKit
         //1.Create CompanyRecord
         //2.Create a CompanyAdminAccount
@@ -47,7 +48,14 @@ public class CompanyService {
 
         // Creating an admin account for the company
         CompanyEmployee admin = companyEmployeeService.createFirstAdminAccount(company);
-//      documentService.uploadDocument(gstCertificate,"gstCertificate","gst-certificate","company-");
+        String folderName= "company/"+company.getCompanyId();
+      documentService.uploadDocument(gstCertificate,"gstCertificate","gst-certificate",folderName,company);
+      documentService.uploadDocument(panCard,"panCard","pan-card",folderName,company);
+      documentService.uploadDocument(companyRegistrationDocument,"companyRegistrationDocument","company-registration-document",folderName,company);
+      documentService.uploadDocument(companyLogo,"companyLogo","company-logo",folderName,company);
+
+      //Send a Mail to the Company an email of successful registration of Company
+
 
     }
 

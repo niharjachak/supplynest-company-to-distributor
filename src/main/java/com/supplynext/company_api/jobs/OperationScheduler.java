@@ -22,6 +22,7 @@ public class OperationScheduler {
 
     @Scheduled(initialDelay = 5000, fixedDelay = Long.MAX_VALUE)
     public void insertOperations() {
+        log.info("Checking and Inserting Operations");
         this.insertOperation("COMPANY_CREATE", "COMPANY");
         this.insertOperation("COMPANY_VIEW", "COMPANY");
         this.insertOperation("COMPANY_UPDATE", "COMPANY");
@@ -65,12 +66,12 @@ public class OperationScheduler {
         this.insertOperation("PAYMENT_RECEIVE", "PAYMENT");
         this.insertOperation("PAYMENT_REFUND", "PAYMENT");
         this.insertOperation("PAYMENT_FAILED", "PAYMENT");
+        log.info("Operation initialization completed");
     }
 
     public void insertOperation(String operationName, String operationType){
 
         if(operationRepository.findByOperationName(operationName)!=null ){
-            log.info("Information exists already ");
             return;
         }
         Operation operation = new Operation();
