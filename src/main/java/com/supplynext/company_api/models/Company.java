@@ -36,8 +36,6 @@ public class Company extends GlobalRecord{
     private String geoLongitude;
     private boolean isKYCCompleted;
 
-    private String contactPersonName;
-    private String contactPersonEmail;
     private String supportEmail;
     private String supportPhone;
 

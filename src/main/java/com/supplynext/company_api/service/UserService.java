@@ -20,4 +20,8 @@ public class UserService {
         return userRepository.findByEmail(botEmail);
     }
 
+    public  User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
 }

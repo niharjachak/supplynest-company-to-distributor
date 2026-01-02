@@ -20,4 +20,6 @@ public class Document  extends GlobalRecord{
     private  String documentType;
     private  String documentUrl;
 
+    @ManyToOne
+    private Company company;
 }

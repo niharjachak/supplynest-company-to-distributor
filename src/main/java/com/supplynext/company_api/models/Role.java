@@ -15,7 +15,9 @@ import java.util.List;
 public class Role extends GlobalRecord{
     @Column(unique = true,nullable = false)
     private String roleId;
-    private String roleName;
+
+    @Column(unique = true)
+    private String roleName;  // TCS_ADMIN, INFOSYS_SALES_MANAGER
     @ManyToMany
     List<Operation> operations;
 }
