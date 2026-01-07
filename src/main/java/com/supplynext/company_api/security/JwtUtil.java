@@ -23,10 +23,10 @@ public class JwtUtil {
     @Autowired
     private UserService userService;
 
-    @Value("jwt-token-expiration-time")
+    @Value("${jwt-token-expiration-time}")
     private Long expirationTime;
 
-    @Value("jwt-secret-password")
+    @Value("${jwt-secret-password}")
     private String secretPassword;
 
     public  String generateJwtToken(String email , List<String> roleNames){

@@ -3,6 +3,7 @@ package com.supplynext.company_api.service;
 import com.supplynext.company_api.dto.CompanyOnboardingRequestDto;
 import com.supplynext.company_api.models.Company;
 import com.supplynext.company_api.models.CompanyEmployee;
+import com.supplynext.company_api.models.Document;
 import com.supplynext.company_api.repository.CompanyRepository;
 
 import com.supplynext.company_api.utilities.MappingUtilities;
@@ -11,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -49,18 +54,29 @@ public class CompanyService {
         // Creating an admin account for the company
         CompanyEmployee admin = companyEmployeeService.createFirstAdminAccount(company);
         String folderName= "company/"+company.getCompanyId();
-      documentService.uploadDocument(gstCertificate,"gstCertificate","gst-certificate",folderName,company);
-      documentService.uploadDocument(panCard,"panCard","pan-card",folderName,company);
-      documentService.uploadDocument(companyRegistrationDocument,"companyRegistrationDocument","company-registration-document",folderName,company);
-      documentService.uploadDocument(companyLogo,"companyLogo","company-logo",folderName,company);
 
+        List<Document> documents = new ArrayList<>();
+
+        Document gstDocument= documentService.uploadDocument(gstCertificate,"gstCertificate","gst-certificate",folderName,company);
+        documents.add(gstDocument);
+        Document panCardDoc=documentService.uploadDocument(panCard,"panCard","pan-card",folderName,company);
+        documents.add(panCardDoc);
+        Document cinDoc=documentService.uploadDocument(companyRegistrationDocument,"companyRegistrationDocument","company-registration-document",folderName,company);
+        documents.add(cinDoc);
+        Document companyLogoDoc=documentService.uploadDocument(companyLogo,"companyLogo","company-logo",folderName,company);
+        documents.add(companyLogoDoc);
+
+        company.setDocumentList(documents);
+        company.setCompanyLogoUrl(company.getCompanyLogoUrl());
+        this.saveCompany(company);
       //Send a Mail to the Company an email of successful registration of Company
 
 
     }
 
-
     public Company saveCompany(Company company){
         return companyRepository.save(company);
     }
+
+
 }

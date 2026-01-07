@@ -23,7 +23,7 @@ public class Company extends GlobalRecord{
     private String pancardNumber;
     private String cinNumber;
     private String companyType; // supplier, brand owner
-
+    private String companyLogoUrl;
     private String addressLine1;
     private String addressLine2;
     private String addressLine3;

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CompanyEmployeeService {
@@ -54,4 +55,8 @@ public class CompanyEmployeeService {
         return companyEmployeeRepository.save(companyEmployee);
     }
 
+    public Company getEmployeeCompanyDetails(UUID userSysId){
+        CompanyEmployee companyEmployee = companyEmployeeRepository.findById(userSysId).orElse(new CompanyEmployee());
+        return companyEmployee.getCompany();
+    }
 }
